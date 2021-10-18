@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.bank.mapper.UserMapper">
+<!-- 查询登录的用户的信息 -->
+    <select id="getUserByMessage" resultType="User">
+        SELECT uid,role,username FROM user WHERE uid=#{uid} AND upassword=#{upassword} and ustate=1;
+    </select>
+<!-- 查询管理员的信息 -->
+    <select id="getAdminByMessage" resultType="User">
+        SELECT uid,role,username FROM admin WHERE uid=#{uid} AND upassword=#{upassword};
+    </select>
+<!-- 获取所有的用户信息 -->
+        <select id="getAllUser" resultType="User">
+           	SELECT * FROM user
+            <where>
+	        	<!--添加if条件如果参数为空则不拼接sql-->
+	        	<if test="uid != null and uid != '' ">
+	        		uid like concat('%',#{uid},'%')
+	        	</if>
+	        	<if test="username != null and username != '' ">
+	        		and username like #{username}
+	        	</if>
+	        	<if test="uidnum != null and uidnum != ''">
+	        		and uidnum like concat('%',#{uidnum},'%')
+	        	</if>
+	        </where>
+            LIMIT #{pageStart},#{pageSize}
+        </select>
+<!-- 获取用户的数目 -->
+        <select id="getUserCounts" resultType="Integer">
+           	SELECT count(*) FROM user
+            <where>
+	        	<!--添加if条件如果参数为空则不拼接sql-->
+	        	<if test="uid != null and uid != '' ">
+	        		uid like concat('%',#{uid},'%')
+	        	</if>
+	        	<if test="username != null and username != '' ">
+	        		and username like #{username}
+	        	</if>
+	        	<if test="uidnum != null and uidnum != ''">
+	        		and uidnum like concat('%',#{uidnum},'%')
+	        	</if>
+	        </where>
+        </select>
+
+<!--         添加用户 -->
+         <insert id="addUser">
+             INSERT INTO user
+             (username,upassword,uidnum,uphonenum,usex)
+             VALUE
+             (#{username},#{upassword},#{uidnum},#{uphonenum},#{usex});
+
+         </insert>
+
+<!-- 获取需要修改信息用户的信息 -->
+         <select id="getUpdateUser" resultType="User">
+             SELECT * FROM user WHERE uid = #{uid}
+         </select>
+
+<!-- 修改用户的信息 -->
+         <update id="editUser">
+             UPDATE user SET upassword = #{upassword} , uphonenum = #{uphonenum}  WHERE uid = #{uid}
+         </update>
+
+<!-- 删除用户信息 -->
+         <delete id="deleteUser">
+             DELETE USER,card FROM card LEFT JOIN USER ON user.`uid`=card.`uid` WHERE card.`uid`=#{uid};
+         </delete>
+</mapper>

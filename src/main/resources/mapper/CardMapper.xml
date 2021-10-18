@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.bank.mapper.CardMapper">
+<!-- 获取所有的银行卡的信息 -->
+        <select id="getAllCard" resultType="Card">
+           	SELECT user.`username`,user.`uid`,card.`cid`,card.`money`,card.`cpassword` FROM USER,card
+            <where>
+            user.`uid`=card.`uid`
+	        	<!--添加if条件如果参数为空则不拼接sql-->
+	        	<if test="uid != null and uid != '' ">
+	        	and	user.uid like concat('%',#{uid},'%')
+	        	</if>
+	        	<if test="cid != null and cid != ''">
+	        	and cid like concat('%',#{cid},'%')
+	        	</if>
+	        </where>
+            LIMIT #{cpageStart},#{cpageSize}
+        </select>
+<!-- 获取银行卡的数目 -->
+        <select id="getCardCounts" resultType="Integer">
+           	SELECT COUNT(*) FROM USER,card
+            <where>
+            user.`uid`=card.`uid`
+   	            <if test="uid != null and uid != '' ">
+	        	 and user.`uid` like concat('%',#{uid},'%')
+	        	</if>
+	        	<if test="cid != null and cid != ''">
+	             and cid like concat('%',#{cid},'%')
+	        	</if>
+	        </where>
+        </select>
+
+<!--         存款 -->
+        <update id="saveMoney">
+            UPDATE card SET money=#{money} WHERE cid=#{cid};
+        </update>
+
+<!--         取款 -->
+        <update id="getMoney">
+            UPDATE card SET money=#{money} WHERE cid=#{cid};
+        </update>
+
+<!--         储户查询自己银行卡的信息 -->
+        <select id="getAllUcard" resultType="Card">
+             SELECT cid,cpassword,money FROM card WHERE uid=#{uid};
+        </select>
+
+         <update id="changeCpwd">
+             UPDATE card SET cpassword = #{cpassword} WHERE cid = #{cid};
+         </update>
+
+</mapper>
