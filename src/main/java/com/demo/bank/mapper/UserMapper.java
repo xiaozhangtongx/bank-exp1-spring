@@ -15,8 +15,8 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    public User getUserByMessage(Integer uid, String upassword);
 
+    public User getUserByMessage(Integer uid, String upassword);
 
     public List<User> getAllUser(Integer uid, String username, String uidnum, int pageStart, int pageSize);
 
@@ -29,4 +29,8 @@ public interface UserMapper {
     public int editUser(User user);
 
     public int deleteUser(int id);
+
+    public User getUserByUidnum(String uidnum);
+
+    public User getUserByUphonenum(String uphonenume);
 }

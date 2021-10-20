@@ -59,6 +59,28 @@ public class UserController {
         return hashMap;
     }
 
+    @RequestMapping("/getuserbyuidnum")
+    public String getUserByUidnum(@RequestBody User user) {
+        System.out.println(user);
+        User userByUidnum = userMapper.getUserByUidnum(user.getUidnum());
+        System.out.println(userByUidnum);
+        String flag = "success";
+        if (userByUidnum != null) {
+            flag = "error";
+        }
+        return flag;
+    }
+
+    @RequestMapping("/getuserbyph")
+    public String getUserByUphonenum(@RequestBody User user) {
+//        System.out.println(user);
+        User userByUidnum = userMapper.getUserByUphonenum(user.getUphonenum());
+        String flag = "success";
+        if (userByUidnum != null) {
+            flag = "error";
+        }
+        return flag;
+    }
 
     /**
      * 新增用户

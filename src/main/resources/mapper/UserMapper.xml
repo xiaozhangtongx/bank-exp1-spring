@@ -46,13 +46,22 @@
 	        </where>
         </select>
 
+<!-- 查询该身份证下的用户是否存在 -->
+        <select id="getUserByUidnum" resultType="User">
+            SELECT * FROM user WHERE uidnum=#{uidnum};
+        </select>
+
+        <select id="getUserByUphonenum" resultType="User">
+            SELECT * FROM user WHERE uphonenum=#{uphonenum};
+        </select>
+
 <!--         添加用户 -->
          <insert id="addUser">
              INSERT INTO user
              (username,upassword,uidnum,uphonenum,usex)
              VALUE
              (#{username},#{upassword},#{uidnum},#{uphonenum},#{usex});
-
+             INSERT INTO card (uid) SELECT uid FROM USER ORDER BY uid DESC LIMIT 1;
          </insert>
 
 <!-- 获取需要修改信息用户的信息 -->
