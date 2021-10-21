@@ -22,6 +22,12 @@ public class UserController {
     @Autowired
     UserMapper userMapper;
 
+    /**
+     * 储户登录
+     *
+     * @param user 登录信息
+     * @return 该用户的信息
+     */
     @RequestMapping("/login")
     public HashMap<String, Object> login(@RequestBody User user) {
         int id = user.getUid();

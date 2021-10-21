@@ -21,6 +21,12 @@ public class AdminController {
     @Autowired
     private AdminMapper adminMapper;
 
+    /**
+     * 业务员登录
+     *
+     * @param admin 登录信息
+     * @return 业务员信息
+     */
     @RequestMapping("/alogin")
     public HashMap<String, Object> alogin(@RequestBody Admin admin) {
         String flag = "error";

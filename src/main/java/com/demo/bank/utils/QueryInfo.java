@@ -3,6 +3,7 @@ package com.demo.bank.utils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * @author zhang
@@ -27,6 +28,7 @@ public class QueryInfo {
     private String uidnum;
     private int pageNum = 1;
     private int pageSize = 1;
+
 
     /**
      * cid 银行卡卡号

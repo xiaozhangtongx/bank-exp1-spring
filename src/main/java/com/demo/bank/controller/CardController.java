@@ -41,7 +41,12 @@ public class CardController {
         return hashMap;
     }
 
-
+    /**
+     * 存款
+     *
+     * @param card 银行卡信息
+     * @return 存款的结果
+     */
     @RequestMapping("/savemoney")
     public String saveMoney(@RequestBody Card card) {
         System.out.println(card);
@@ -49,6 +54,12 @@ public class CardController {
         return i > 0 ? "success" : "error";
     }
 
+    /**
+     * 取款
+     *
+     * @param card 银行卡信息
+     * @return 取款的结果
+     */
     @RequestMapping("/getmoney")
     public String getMoney(@RequestBody Card card) {
         System.out.println(card);
@@ -56,6 +67,12 @@ public class CardController {
         return i > 0 ? "success" : "error";
     }
 
+    /**
+     * 获取当前用户的信息
+     *
+     * @param uid 用户账号
+     * @return 该用户所有的银行卡
+     */
     @RequestMapping("/ucardlist")
     public HashMap<String, Object> getUcardList(int uid) {
         List<Card> allCard = cardMapper.getAllUcard(uid);
@@ -65,6 +82,12 @@ public class CardController {
         return hashMap;
     }
 
+    /**
+     * 修改银行卡密码
+     *
+     * @param card 银行卡信息
+     * @return 修改的结果
+     */
     @RequestMapping("/changecpwd")
     public String changeCpwd(@RequestBody Card card) {
         System.out.println(card);

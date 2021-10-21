@@ -12,5 +12,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface AdminMapper {
+    /**
+     * 业务员登录
+     *
+     * @param uid       工号
+     * @param upassword 登录密码
+     * @return 业务员个人信息
+     */
     public Admin getAdminByMessage(Integer uid, int upassword);
 }
